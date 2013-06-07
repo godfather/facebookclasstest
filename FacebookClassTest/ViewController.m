@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "User.h"
 
 @interface ViewController ()
 
@@ -14,16 +15,34 @@
 
 @implementation ViewController
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+@synthesize fbStatus    = _fbStatus;
+@synthesize loginButton = _loginButton;
+
+- (void)viewDidLoad {  
+  [self updateStatusLabels];
+  [super viewDidLoad];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)didReceiveMemoryWarning {
+  [super didReceiveMemoryWarning];
+}
+
+- (IBAction)performLogin:(UIButton *)sender {  
+  if([GFFacebookHelpers isLogged]) {
+    [GFFacebookHelpers logout:^{ [self updateStatusLabels]; }];
+  } else {
+    [GFFacebookHelpers login:^{
+      [self updateStatusLabels];
+    } onClose:^{} onError:nil];
+  }
+}
+
+- (void)updateStatusLabels {
+  User *user = [GFFacebookHelpers requestUserData];
+  NSLog(@"user: %@", user.name);
+  
+  self.fbStatus.text = [GFFacebookHelpers isLogged] ? @"Logado" : @"Offline";
+  [_loginButton setTitle:[GFFacebookHelpers isLogged] ? @"Logout" : @"Login" forState:UIControlStateNormal];
 }
 
 @end

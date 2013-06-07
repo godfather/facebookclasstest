@@ -9,7 +9,7 @@
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIdentifier</key>
-	<string>br.com.14bits.${PRODUCT_NAME:rfc1034identifier}</string>
+	<string>br.com.14bits.MLBeta</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -30,6 +30,27 @@
 	<array>
 		<string>armv7</string>
 	</array>
+	<key>FacebookAppID</key>
+	<string>588729964492891</string>
+	<key>FacebookDisplayName</key>
+	<string>MLBeta</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb588729964492891</string>
+			</array>
+		</dict>
+	</array>
+	<key>FacebookPermissions</key>
+	<array>
+		<string>read_requests</string>
+		<string>user_location</string>
+		<string>user_relationships</string>
+	</array>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
