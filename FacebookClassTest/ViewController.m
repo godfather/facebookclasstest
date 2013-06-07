@@ -18,31 +18,39 @@
 @synthesize fbStatus    = _fbStatus;
 @synthesize loginButton = _loginButton;
 
-- (void)viewDidLoad {  
-  [self updateStatusLabels];
-  [super viewDidLoad];
+- (void)viewDidLoad {
+    [self updateStatusLabels];
+    [super viewDidLoad];
 }
 
 - (void)didReceiveMemoryWarning {
-  [super didReceiveMemoryWarning];
+    [super didReceiveMemoryWarning];
 }
 
-- (IBAction)performLogin:(UIButton *)sender {  
-  if([GFFacebookHelpers isLogged]) {
-    [GFFacebookHelpers logout:^{ [self updateStatusLabels]; }];
-  } else {
-    [GFFacebookHelpers login:^{
-      [self updateStatusLabels];
-    } onClose:^{} onError:nil];
-  }
+
+- (IBAction)performLogin:(UIButton *)sender {
+    if([GFFacebookHelpers isLogged]) {
+        [GFFacebookHelpers logout:^{ [self updateStatusLabels]; }];
+    } else {
+        [GFFacebookHelpers login:^{
+            [self updateStatusLabels];
+        } onClose:^{} onError:nil];
+    }
 }
 
 - (void)updateStatusLabels {
-  User *user = [GFFacebookHelpers requestUserData];
-  NSLog(@"user: %@", user.name);
-  
-  self.fbStatus.text = [GFFacebookHelpers isLogged] ? @"Logado" : @"Offline";
-  [_loginButton setTitle:[GFFacebookHelpers isLogged] ? @"Logout" : @"Login" forState:UIControlStateNormal];
+    if([GFFacebookHelpers isLogged]){
+        [GFFacebookHelpers requestUserDataWithCompletionHandler:^(User *user, NSError *error) {
+            if(!error){
+                self.fbStatus.text = user.name;
+                [_loginButton setTitle:@"Logout" forState:UIControlStateNormal];
+            }
+        }];
+    }else{
+        self.fbStatus.text = @"-";
+        
+        [_loginButton setTitle:@"Login" forState:UIControlStateNormal];
+    }
 }
 
 @end

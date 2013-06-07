@@ -26,7 +26,7 @@ typedef void(^OnErrorCallback)();
 + (BOOL)isLogged;
 
 //User profile data
-+ (User *)requestUserData;
++ (void)requestUserDataWithCompletionHandler:(void (^)(User *user, NSError *error))handler;
 + (void)setUserData:(NSDictionary<FBGraphUser> *)user userModel:(User *)userModel;
 
 @end
