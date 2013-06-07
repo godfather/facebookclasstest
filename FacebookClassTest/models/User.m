@@ -10,4 +10,10 @@
 
 @implementation User
   @synthesize name = _name;
+
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"<User: %@>", self.name];
+}
+
 @end

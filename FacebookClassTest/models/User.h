@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 
 @interface User : NSObject
-  @property (strong, nonatomic) NSString* name;
+  @property (copy, nonatomic) NSString *name;
 @end
